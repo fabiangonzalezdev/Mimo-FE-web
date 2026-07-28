@@ -49,5 +49,10 @@ test("keeps starter preview code out of the finished site", async () => {
   assert.match(page, /MIMO-FE/);
   assert.match(layout, /MIMO-FE — Tu biblioteca, a tu manera/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
-  await assert.rejects(access(new URL("../app/_sites-preview/", import.meta.url)));
+  await assert.rejects(
+    access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)),
+  );
+  await assert.rejects(
+    access(new URL("../app/_sites-preview/preview.css", import.meta.url)),
+  );
 });
