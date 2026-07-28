@@ -1,57 +1,57 @@
 # MIMO-FE Web
 
-Sitio oficial de **MIMO-FE — Multi Interface Mega Orchestrator FrontEnd**.
-Reúne las novedades del proyecto, el acceso a descargas, la documentación y los
-canales de soporte en una página simple y directa.
+The official website for **MIMO-FE — Multi Interface Mega Orchestrator FrontEnd**.
+It brings together project updates, downloads, documentation, and support in one
+simple, direct landing page.
 
-## Sitio
+## Live site
 
 [mimo-fe.fabiangonzalezdev.chatgpt.site](https://mimo-fe.fabiangonzalezdev.chatgpt.site)
 
-## Qué incluye
+## What it includes
 
-- presentación de MIMO-FE y su propuesta;
-- novedades de la última versión;
-- acceso a builds para macOS, Windows y Linux;
-- enlaces a la wiki, soporte y repositorio principal;
-- diseño responsive y tarjeta social propia.
+- a clear introduction to MIMO-FE;
+- highlights from the latest release;
+- download links for macOS, Windows, and Linux;
+- direct access to documentation, support, and the application repository;
+- responsive layouts, a fixed desktop navigation bar, and a custom social card.
 
-## Desarrollo local
+## Local development
 
-Requiere Node.js `22.13.0` o posterior.
+Requires Node.js `22.13.0` or later.
 
 ```bash
 npm install
 npm run dev
 ```
 
-La vista local estará disponible en `http://localhost:3000`.
+The local site will be available at `http://localhost:3000`.
 
-## Validación
+## Validation
 
 ```bash
 npm run build
 npm test
 ```
 
-## Estructura principal
+## Main structure
 
 ```text
 app/
-  page.tsx       contenido de la landing
-  layout.tsx     metadatos y configuración general
-  globals.css    sistema visual y responsive
+  page.tsx       landing page content
+  layout.tsx     metadata and global configuration
+  globals.css    visual system and responsive styles
 public/
-  mimo-mark.svg  marca de MIMO-FE
-  og.png         tarjeta para compartir enlaces
+  mimo-mark.svg  MIMO-FE brand mark
+  og.png         social sharing card
 ```
 
-## Proyectos relacionados
+## Related projects
 
-- [MIMO-FE](https://github.com/fabiangonzalezdev/Mico-FE): aplicación de escritorio.
-- [MIMO-FE Web](https://github.com/fabiangonzalezdev/Mimo-FE-web): sitio de novedades, descargas y soporte.
+- [MIMO-FE](https://github.com/fabiangonzalezdev/Mimo-FE): desktop application and downloads.
+- [MIMO-FE Web](https://github.com/fabiangonzalezdev/Mimo-FE-web): release, download, documentation, and support website.
 
-## Contenido y privacidad
+## Content and privacy
 
-MIMO-FE organiza bibliotecas locales configuradas por cada usuario. No incluye
-ni distribuye ROMs, BIOS, cores, emuladores o material protegido.
+MIMO-FE organizes local libraries configured by each user. It does not include
+or distribute ROMs, BIOS files, cores, emulators, or copyrighted game content.
