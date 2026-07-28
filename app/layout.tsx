@@ -1,20 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const viewport: Viewport = {
-  themeColor: "#f5f2ec",
+  themeColor: "#ffffff",
   colorScheme: "light",
 };
 
@@ -27,23 +16,23 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadataBase = new URL(`${protocol}://${host}`);
 
   return {
-    title: "MIMO-FE — Your library, your way",
+    title: "MIMO-FE — A beautiful home for every game",
     description:
-      "Download MIMO-FE and follow the latest updates from the local frontend for your game library.",
+      "Download MIMO-FE, explore its console-inspired interface, and follow the latest desktop beta.",
     metadataBase,
     openGraph: {
-      title: "MIMO-FE — Your library, your way",
+      title: "MIMO-FE — A beautiful home for every game",
       description:
-        "A local, personal, and cross-platform frontend for your game library.",
+        "A local-first, controller-ready, and cross-platform frontend for your game library.",
       type: "website",
       locale: "en_US",
       images: [{ url: "/og.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "MIMO-FE — Your library, your way",
+      title: "MIMO-FE — A beautiful home for every game",
       description:
-        "A local, personal, and cross-platform frontend for your game library.",
+        "A local-first, controller-ready, and cross-platform frontend for your game library.",
       images: ["/og.png"],
     },
     icons: {
@@ -60,9 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
