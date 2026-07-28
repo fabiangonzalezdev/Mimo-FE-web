@@ -26,16 +26,22 @@ simple, direct landing page.
 The production settings are versioned in [`netlify.toml`](./netlify.toml):
 
 - build command: `npm run build`;
-- publish directory: `.next`;
+- publish directory: `out`;
 - Node.js: `22.13.0`;
-- Next.js support: Netlify's current OpenNext-based runtime.
+- delivery mode: fully static Next.js export (no server runtime required).
 
 To publish manually in the Netlify dashboard:
 
 1. Choose **Add new project** and **Import an existing project**.
 2. Connect GitHub and select `fabiangonzalezdev/Mimo-FE-web`.
 3. Keep the detected settings from `netlify.toml`.
-4. Select **Deploy**. The generated Netlify URL is public by default.
+4. Confirm that the publish directory is `out`.
+5. Select **Deploy**. The generated Netlify URL is public by default.
+
+If the Netlify project was created before this configuration, open **Project
+configuration → Build & deploy → Continuous deployment → Build settings**, leave
+the base directory empty, use `npm run build`, set the publish directory to
+`out`, and redeploy the latest commit from `main`.
 
 No application secrets or environment variables are required for this site.
 The source repository can remain private as long as Netlify has GitHub access.

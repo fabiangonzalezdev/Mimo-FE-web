@@ -16,11 +16,21 @@ test("the production script uses the Netlify-supported Next.js build", async () 
   assert.match(packageJson.engines.node, /22\.13\.0/);
 });
 
-test("Netlify configuration publishes the Next.js output", async () => {
+test("Next.js produces a fully static production export", async () => {
+  const nextConfig = await readProjectFile("next.config.ts");
+  const layout = await readProjectFile("app/layout.tsx");
+
+  assert.match(nextConfig, /output: "export"/);
+  assert.match(nextConfig, /trailingSlash: true/);
+  assert.doesNotMatch(layout, /next\/headers/);
+});
+
+test("Netlify publishes the static Next.js output", async () => {
   const config = await readProjectFile("netlify.toml");
 
   assert.match(config, /command = "npm run build"/);
-  assert.match(config, /publish = "\.next"/);
+  assert.match(config, /publish = "out"/);
+  assert.match(config, /NETLIFY_NEXT_PLUGIN_SKIP = "true"/);
   assert.match(config, /NODE_VERSION = "22\.13\.0"/);
   assert.match(config, /X-Content-Type-Options = "nosniff"/);
 });
