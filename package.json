@@ -2,6 +2,7 @@
   "name": "mimo-fe-web",
   "version": "0.1.0",
   "private": true,
+  "description": "Sitio oficial de MIMO-FE para novedades, descargas, documentación y soporte.",
   "engines": {
     "node": ">=22.13.0"
   },
