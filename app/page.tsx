@@ -24,8 +24,8 @@ const releaseHighlights = [
 ];
 
 const platforms = [
-  { name: "macOS", detail: ".app y .dmg", status: "Build disponible" },
-  { name: "Windows 11", detail: ".msi y .exe", status: "Build disponible" },
+  { name: "macOS", detail: ".app y .dmg", status: "Build configurado" },
+  { name: "Windows 11", detail: ".msi y .exe", status: "Build configurado" },
   { name: "Linux", detail: "Desde el código fuente", status: "En preparación" },
 ];
 
