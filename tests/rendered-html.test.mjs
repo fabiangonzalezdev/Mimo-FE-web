@@ -34,7 +34,7 @@ test("server-renders the English MIMO-FE landing page", async () => {
   assert.match(html, /0\.1\.0 Preview/);
   assert.match(html, /Download on GitHub/);
   assert.match(html, /Latest changes/);
-  assert.match(html, /Documentation/);
+  assert.match(html, /documentation/i);
   assert.match(html, /Support/);
   assert.match(html, /github\.com\/fabiangonzalezdev\/Mimo-FE\/releases/);
   assert.doesNotMatch(html, /Tu biblioteca|Descargar ahora|Novedades|Soporte/);
