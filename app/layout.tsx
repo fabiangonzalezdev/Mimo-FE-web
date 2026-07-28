@@ -26,14 +26,14 @@ export async function generateMetadata(): Promise<Metadata> {
         "A local-first, controller-ready, and cross-platform frontend for your game library.",
       type: "website",
       locale: "en_US",
-      images: [{ url: "/og.png", width: 1200, height: 630 }],
+      images: [{ url: "/og-console.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: "MIMO-FE — A beautiful home for every game",
       description:
         "A local-first, controller-ready, and cross-platform frontend for your game library.",
-      images: ["/og.png"],
+      images: ["/og-console.png"],
     },
     icons: {
       icon: "/favicon.svg",
