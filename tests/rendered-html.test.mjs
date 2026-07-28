@@ -30,18 +30,20 @@ test("server-renders the English MIMO-FE landing page", async () => {
 
   const html = await response.text();
   assert.match(html, /MIMO-FE/);
-  assert.match(html, /Your library/);
-  assert.match(html, /0\.1\.0 Preview/);
+  assert.match(html, /A beautiful home/);
+  assert.match(html, /0\.2\.0-beta\.1/);
   assert.match(html, /Download on GitHub/);
-  assert.match(html, /Latest changes/);
-  assert.match(html, /documentation/i);
+  assert.match(html, /Latest release/);
+  assert.match(html, /Explore the wiki/);
   assert.match(html, /Support/);
   assert.match(html, /github\.com\/fabiangonzalezdev\/Mimo-FE\/releases/);
+  assert.match(html, /github\.com\/fabiangonzalezdev\/Mimo-FE\/wiki/);
+  assert.doesNotMatch(html, /0\.1\.0 Preview/);
   assert.doesNotMatch(html, /Tu biblioteca|Descargar ahora|Novedades|Soporte/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/i);
 });
 
-test("keeps the finished site responsive and free from starter preview code", async () => {
+test("keeps the console identity responsive and interactive", async () => {
   const [page, layout, css, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
@@ -50,13 +52,24 @@ test("keeps the finished site responsive and free from starter preview code", as
   ]);
 
   assert.match(page, /https:\/\/github\.com\/fabiangonzalezdev\/Mimo-FE/);
-  assert.match(layout, /MIMO-FE — Your library, your way/);
+  assert.match(page, /const wikiUrl = `\$\{applicationGithub\}\/wiki`/);
+  assert.match(page, /useState<ThemeId>/);
+  assert.match(page, /ambient-note/);
+  assert.match(page, /function MimoLogo/);
+  assert.match(layout, /MIMO-FE — A beautiful home for every game/);
   assert.match(layout, /<html lang="en">/);
   assert.match(css, /\.site-header\s*\{[^}]*position:\s*fixed/s);
-  assert.match(css, /@media \(max-width: 760px\)/);
+  assert.match(css, /"Arial Rounded MT Bold"/);
+  assert.match(css, /--aqua:\s*#73d7cf/);
+  assert.match(css, /--coral:\s*#f29aa6/);
+  assert.match(css, /--yellow:\s*#f1d47c/);
+  assert.match(css, /--violet:\s*#a99ae8/);
+  assert.match(css, /\.theme-menu\s*\{/);
+  assert.match(css, /\.mobile-dock\s*\{/);
+  assert.match(css, /@media \(max-width: 720px\)/);
   assert.match(
     css,
-    /@media \(max-width: 1100px\)\s*\{[\s\S]*?\.hero\s*\{[^}]*width:\s*100%[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/,
+    /@media \(max-width: 1180px\)\s*\{[\s\S]*?\.hero\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/,
   );
   assert.match(css, /\.hero-copy\s*\{[^}]*min-width:\s*0/s);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
