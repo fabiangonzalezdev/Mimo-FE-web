@@ -10,11 +10,14 @@ simple, direct landing page.
 
 ## What it includes
 
-- a clear introduction to MIMO-FE;
-- highlights from the latest release;
+- the official MIMO-FE four-color console identity and rounded interface typography;
+- a white-first responsive layout with floating controls and panels;
+- an interactive aqua, coral, butter-yellow, and violet theme menu;
+- subtle blurred geometric shapes and musical notes inspired by the application;
+- highlights from the `v0.2.0-beta.1` desktop beta;
 - download links for macOS, Windows, and Linux;
-- direct access to documentation, support, and the application repository;
-- responsive layouts, a fixed desktop navigation bar, and a custom social card.
+- direct access to the [official wiki](https://github.com/fabiangonzalezdev/Mimo-FE/wiki), support, releases, and source;
+- fixed desktop navigation, a mobile console dock, and a custom social card.
 
 ## Deploy to Netlify
 
@@ -70,12 +73,11 @@ configuration.
 
 ```text
 app/
-  page.tsx       landing page content
+  page.tsx       landing page, color menu, console preview, and content
   layout.tsx     metadata and global configuration
-  globals.css    visual system and responsive styles
+  globals.css    MIMO-FE palette, floating UI, animation, and responsive styles
 public/
-  mimo-mark.svg  MIMO-FE brand mark
-  og.png         social sharing card
+  og-console.png social sharing card for the console redesign
 netlify.toml      production deployment configuration
 CHANGELOG.md      public release notes
 ```
@@ -83,6 +85,7 @@ CHANGELOG.md      public release notes
 ## Related projects
 
 - [MIMO-FE](https://github.com/fabiangonzalezdev/Mimo-FE): desktop application and downloads.
+- [MIMO-FE Wiki](https://github.com/fabiangonzalezdev/Mimo-FE/wiki): official installation and usage documentation.
 - [MIMO-FE Web](https://github.com/fabiangonzalezdev/Mimo-FE-web): release, download, documentation, and support website.
 
 ## Content and privacy
