@@ -1,82 +1,209 @@
+"use client";
+
+import { useState } from "react";
+
 const applicationGithub = "https://github.com/fabiangonzalezdev/Mimo-FE";
 const websiteGithub = "https://github.com/fabiangonzalezdev/Mimo-FE-web";
 const downloadUrl = `${applicationGithub}/releases`;
+const wikiUrl = `${applicationGithub}/wiki`;
+const supportUrl = `${applicationGithub}/issues`;
+
+type ThemeId = "aqua" | "coral" | "yellow" | "violet";
+
+const themes: Array<{ id: ThemeId; label: string }> = [
+  { id: "aqua", label: "Aqua" },
+  { id: "coral", label: "Coral" },
+  { id: "yellow", label: "Butter yellow" },
+  { id: "violet", label: "Violet" },
+];
 
 const releaseHighlights = [
   {
-    number: "01",
-    title: "A real desktop app",
-    copy: "The React interface now runs inside Tauri 2, ready for native macOS and Windows installers.",
+    symbol: "⌂",
+    tone: "aqua",
+    title: "A console-first home",
+    copy: "A four-section floating dock, animated startup, local profiles, and a game mosaic designed for controllers and the couch.",
   },
   {
-    number: "02",
-    title: "Your library stays yours",
-    copy: "SQLite keeps the catalog fast while a portable XML manifest keeps games, order, profiles, and assets together.",
+    symbol: "◇",
+    tone: "coral",
+    title: "A layout for every screen",
+    copy: "Automatic, widescreen, tablet, phone, and classic 4:3 layouts keep every panel inside its own canvas.",
   },
   {
-    number: "03",
-    title: "A more personal interface",
-    copy: "Reorder games, resize every tile, and choose the borders, artwork, backgrounds, logos, and avatar you want.",
+    symbol: "□",
+    tone: "yellow",
+    title: "Your library stays local",
+    copy: "SQLite keeps browsing fast while an optional portable XML manifest keeps your order, profiles, and assets together.",
   },
   {
-    number: "04",
-    title: "More ways to play",
-    copy: "Controller-first navigation, local language catalogs, and an optional secure RetroAchievements connection.",
+    symbol: "♫",
+    tone: "violet",
+    title: "Made to feel personal",
+    copy: "Gamepad navigation, local artwork, editable tiles, ambient audio, floating shapes, and three interface languages.",
   },
 ];
 
 const platforms = [
-  { name: "macOS", detail: ".app and .dmg", status: "Build pipeline ready" },
-  { name: "Windows 11", detail: ".msi and .exe", status: "Build pipeline ready" },
-  { name: "Linux", detail: "Build from source", status: "In progress" },
+  {
+    name: "macOS Apple Silicon",
+    detail: ".app and .dmg",
+    status: "Locally validated",
+    symbol: "●",
+  },
+  {
+    name: "macOS Intel",
+    detail: ".app and .dmg",
+    status: "CI package prepared",
+    symbol: "○",
+  },
+  {
+    name: "Windows 11",
+    detail: ".msi and .exe",
+    status: "CI package prepared",
+    symbol: "▦",
+  },
+  {
+    name: "Linux x64",
+    detail: ".AppImage and .deb",
+    status: "CI package prepared",
+    symbol: "⌁",
+  },
 ];
 
-export default function Home() {
+function MimoLogo({ size = "normal" }: { size?: "small" | "normal" | "large" }) {
   return (
-    <main>
+    <span className={`mimo-logo mimo-logo-${size}`} aria-hidden="true">
+      <span className="mimo-mark">
+        <i />
+        <i />
+        <i />
+        <i />
+        <strong>M</strong>
+      </span>
+    </span>
+  );
+}
+
+export default function Home() {
+  const [theme, setTheme] = useState<ThemeId>("violet");
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+
+  function chooseTheme(nextTheme: ThemeId) {
+    setTheme(nextTheme);
+    setThemeMenuOpen(false);
+  }
+
+  return (
+    <main className="site-shell" data-theme={theme}>
+      <div className="ambient-world" aria-hidden="true">
+        <span className="ambient-symbol ambient-square" />
+        <span className="ambient-symbol ambient-circle" />
+        <span className="ambient-symbol ambient-triangle" />
+        <span className="ambient-symbol ambient-plus">+</span>
+        <span className="ambient-symbol ambient-diamond" />
+        <span className="ambient-note ambient-note-one">♪</span>
+        <span className="ambient-note ambient-note-two">♫</span>
+        <span className="ambient-note ambient-note-three">♩</span>
+      </div>
+
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="MIMO-FE home">
-          <img src="/mimo-mark.svg" alt="" width="34" height="34" />
-          <span>MIMO-FE</span>
-        </a>
+        <div className="site-header-inner">
+          <a className="brand" href="#top" aria-label="MIMO-FE home">
+            <MimoLogo />
+            <span className="brand-copy">
+              <strong>MIMO-FE</strong>
+              <small>Multi Interface Mega Orchestrator FrontEnd</small>
+            </span>
+          </a>
 
-        <nav aria-label="Main navigation">
-          <a href="#release">Release</a>
-          <a href="#download">Download</a>
-          <a href="#resources">Docs</a>
-          <a href="#resources">Support</a>
-        </nav>
+          <nav className="desktop-nav floating-control" aria-label="Main navigation">
+            <a href="#release">Release</a>
+            <a href="#download">Download</a>
+            <a href={wikiUrl} target="_blank" rel="noreferrer">Wiki</a>
+            <a href={supportUrl} target="_blank" rel="noreferrer">Support</a>
+          </nav>
 
-        <a
-          className="header-cta"
-          href={downloadUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Download
-          <span aria-hidden="true">↗</span>
-        </a>
+          <div className="header-actions">
+            <div
+              className="theme-control"
+              onKeyDown={(event) => {
+                if (event.key === "Escape") setThemeMenuOpen(false);
+              }}
+            >
+              <button
+                type="button"
+                className="theme-trigger floating-control"
+                aria-label="Choose interface color"
+                aria-expanded={themeMenuOpen}
+                aria-controls="theme-menu"
+                onClick={() => setThemeMenuOpen((isOpen) => !isOpen)}
+              >
+                <span className={`active-color active-color-${theme}`} />
+                <span className="theme-label">Color</span>
+                <span aria-hidden="true">⌄</span>
+              </button>
+
+              {themeMenuOpen ? (
+                <div className="theme-menu" id="theme-menu">
+                  <span>Interface color</span>
+                  <div className="theme-options" role="group" aria-label="Interface colors">
+                    {themes.map((option) => (
+                      <button
+                        type="button"
+                        className={`theme-option theme-option-${option.id}`}
+                        aria-label={`Use ${option.label}`}
+                        aria-pressed={theme === option.id}
+                        onClick={() => chooseTheme(option.id)}
+                        key={option.id}
+                      >
+                        <i aria-hidden="true" />
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <a
+              className="header-download floating-control"
+              href={downloadUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="header-download-label">Get the beta</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
       </header>
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <a className="release-pill" href="#release">
-            <span>New release</span>
-            v0.1.0 Preview
+          <a className="release-pill floating-control" href="#release">
+            <span className="release-note" aria-hidden="true">♪</span>
+            <span>
+              <strong>v0.2.0-beta.1</strong>
+              <small>Desktop beta</small>
+            </span>
             <span aria-hidden="true">→</span>
           </a>
+
+          <p className="hero-kicker">YOUR GAMES · YOUR INTERFACE</p>
           <h1>
-            Your library.
-            <br />
-            <em>Your way.</em>
+            A beautiful home
+            <span>for every game.</span>
           </h1>
-          <p>
-            MIMO-FE organizes and launches your local game collection through
-            an interface built for the couch, your controller, and your style.
+          <p className="hero-description">
+            MIMO-FE brings your local game collection into a playful,
+            controller-ready interface inspired by the console menus we grew
+            up with.
           </p>
+
           <div className="hero-actions">
             <a
-              className="button button-primary"
+              className="button button-primary floating-control"
               href={downloadUrl}
               target="_blank"
               rel="noreferrer"
@@ -84,71 +211,73 @@ export default function Home() {
               Download on GitHub
               <span aria-hidden="true">↗</span>
             </a>
-            <a className="button button-quiet" href="#release">
-              See what changed
+            <a
+              className="button button-secondary floating-control"
+              href={wikiUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Explore the wiki
+              <span aria-hidden="true">→</span>
             </a>
           </div>
-          <p className="privacy-note">
-            Free and local. MIMO-FE does not include ROMs, BIOS files, cores, or
-            emulators.
-          </p>
+
+          <div className="hero-facts" aria-label="MIMO-FE highlights">
+            <span><i className="fact-aqua" />Local-first</span>
+            <span><i className="fact-coral" />Controller-ready</span>
+            <span><i className="fact-yellow" />Cross-platform</span>
+          </div>
         </div>
 
-        <div className="product-shot" aria-label="MIMO-FE interface preview">
-          <div className="shot-bar">
-            <div className="shot-dots" aria-hidden="true">
-              <span />
-              <span />
-              <span />
+        <div className="console-preview" aria-label="MIMO-FE interface preview">
+          <div className="preview-glow" aria-hidden="true" />
+          <div className="preview-topbar">
+            <MimoLogo size="small" />
+            <div className="preview-title">
+              <span>HOME</span>
+              <strong>Your collection</strong>
             </div>
-            <span>MIMO-FE · HOME</span>
-            <span className="shot-time">21:42</span>
+            <div className="preview-status">
+              <span className="preview-music" aria-hidden="true">♪</span>
+              <span><strong>23:38</strong><small>READY TO PLAY</small></span>
+            </div>
           </div>
-          <div className="shot-layout">
-            <aside className="shot-sidebar" aria-hidden="true">
-              <img src="/mimo-mark.svg" alt="" width="42" height="42" />
-              <span className="sidebar-item active">⌂</span>
-              <span className="sidebar-item">◇</span>
-              <span className="sidebar-item">☆</span>
-              <span className="sidebar-item">⚙</span>
-            </aside>
-            <div className="shot-content">
-              <div className="shot-heading">
-                <div>
-                  <span>WELCOME BACK</span>
-                  <strong>Choose a game</strong>
-                </div>
-                <span className="profile-dot">FG</span>
+
+          <div className="preview-stage">
+            <div className="preview-welcome">
+              <span>WELCOME BACK</span>
+              <strong>Choose a game</strong>
+            </div>
+            <div className="preview-grid" aria-hidden="true">
+              <div className="preview-card preview-card-featured">
+                <small>YOUR COLLECTION</small>
+                <strong>Play what<br />you love.</strong>
+                <span>CONTINUE&nbsp;&nbsp; →</span>
               </div>
-              <div className="game-grid" aria-hidden="true">
-                <div className="game-card game-featured">
-                  <span>YOUR COLLECTION</span>
-                  <strong>Play what you love.</strong>
-                  <i />
-                </div>
-                <div className="game-card game-mint">
-                  <span>ADVENTURE</span>
-                  <b>△</b>
-                </div>
-                <div className="game-card game-lavender tall">
-                  <span>ARCADE</span>
-                  <b>○</b>
-                </div>
-                <div className="game-card game-yellow">
-                  <span>CLASSICS</span>
-                  <b>□</b>
-                </div>
-                <div className="game-card game-coral">
-                  <span>RECENT</span>
-                  <b>◇</b>
-                </div>
+              <div className="preview-card preview-card-aqua">
+                <small>ADVENTURE</small>
+                <b>△</b>
               </div>
-              <div className="shot-footer">
-                <span><kbd>A</kbd> Select</span>
-                <span><kbd>B</kbd> Back</span>
-                <span>5 games ready</span>
+              <div className="preview-card preview-card-coral">
+                <small>ARCADE</small>
+                <b>○</b>
+              </div>
+              <div className="preview-card preview-card-yellow">
+                <small>CLASSICS</small>
+                <b>□</b>
+              </div>
+              <div className="preview-card preview-card-violet">
+                <small>RECENT</small>
+                <b>◇</b>
               </div>
             </div>
+          </div>
+
+          <div className="preview-dock" aria-hidden="true">
+            <span className="dock-item dock-item-active">⌂</span>
+            <span className="dock-item">♠</span>
+            <span className="dock-item">★</span>
+            <span className="dock-item">⚙</span>
           </div>
         </div>
       </section>
@@ -156,20 +285,22 @@ export default function Home() {
       <section className="release-section" id="release">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">Latest changes · July 27, 2026</span>
-            <h2>0.1.0 Preview</h2>
+            <span className="eyebrow">Latest release · July 27, 2026</span>
+            <h2>Meet the first MIMO-FE desktop beta.</h2>
           </div>
-          <p>
-            MIMO-FE has moved beyond its web demo and become a local,
-            cross-platform desktop application without leaving your existing
-            library behind.
-          </p>
+          <div className="version-badge floating-control">
+            <span>VERSION</span>
+            <strong>0.2.0-beta.1</strong>
+            <small>Desktop beta</small>
+          </div>
         </div>
 
         <div className="release-grid">
           {releaseHighlights.map((item) => (
-            <article className="release-item" key={item.number}>
-              <span>{item.number}</span>
+            <article className="release-card floating-panel" key={item.title}>
+              <span className={`release-symbol release-symbol-${item.tone}`} aria-hidden="true">
+                {item.symbol}
+              </span>
               <h3>{item.title}</h3>
               <p>{item.copy}</p>
             </article>
@@ -178,83 +309,81 @@ export default function Home() {
       </section>
 
       <section className="download-section" id="download">
-        <div className="download-copy">
-          <span className="eyebrow">Download now</span>
-          <h2>Choose your platform and get started.</h2>
-          <p>
-            Installers and preview builds are published in the official MIMO-FE
-            GitHub repository. Follow the project there for every new release.
-          </p>
-          <a
-            className="button button-light"
-            href={downloadUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open GitHub downloads
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-
-        <div className="platform-list">
-          {platforms.map((platform) => (
+        <div className="download-panel floating-panel">
+          <div className="download-copy">
+            <span className="eyebrow">Download now</span>
+            <h2>Pick your system. Keep your library.</h2>
+            <p>
+              Preview builds and installers are published through the official
+              MIMO-FE GitHub Releases page. Platform validation is still in
+              progress while the project remains in beta.
+            </p>
             <a
+              className="button button-primary floating-control"
               href={downloadUrl}
               target="_blank"
               rel="noreferrer"
-              className="platform-row"
-              key={platform.name}
             >
-              <span className="platform-symbol" aria-hidden="true">
-                {platform.name === "macOS"
-                  ? "●"
-                  : platform.name === "Windows 11"
-                    ? "▦"
-                    : "⌁"}
-              </span>
-              <span>
-                <strong>{platform.name}</strong>
-                <small>{platform.detail}</small>
-              </span>
-              <span className="platform-status">{platform.status}</span>
-              <span aria-hidden="true">→</span>
+              Open GitHub Releases
+              <span aria-hidden="true">↗</span>
             </a>
-          ))}
+          </div>
+
+          <div className="platform-list">
+            {platforms.map((platform) => (
+              <a
+                href={downloadUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="platform-row"
+                key={platform.name}
+              >
+                <span className="platform-symbol" aria-hidden="true">{platform.symbol}</span>
+                <span className="platform-copy">
+                  <strong>{platform.name}</strong>
+                  <small>{platform.detail}</small>
+                </span>
+                <span className="platform-status">{platform.status}</span>
+                <span className="platform-arrow" aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="resources-section" id="resources">
-        <div className="section-heading compact">
+        <div className="section-heading section-heading-simple">
           <div>
-            <span className="eyebrow">Help and documentation</span>
-            <h2>Everything you need. Nothing extra.</h2>
+            <span className="eyebrow">Wiki · support · source</span>
+            <h2>Everything you need, in the right place.</h2>
           </div>
         </div>
 
         <div className="resource-grid">
-          <a
-            className="resource-card"
-            href={`${applicationGithub}#readme`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="resource-icon" aria-hidden="true">?</span>
+          <a className="resource-card floating-panel" href={wikiUrl} target="_blank" rel="noreferrer">
+            <span className="resource-icon resource-icon-aqua" aria-hidden="true">?</span>
             <div>
               <span>DOCUMENTATION</span>
-              <h3>Installation, setup, and architecture.</h3>
+              <h3>Read the official MIMO-FE wiki.</h3>
+              <p>Installation, first run, display layouts, controls, and architecture.</p>
             </div>
             <span aria-hidden="true">↗</span>
           </a>
-          <a
-            className="resource-card"
-            href={`${applicationGithub}/issues`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="resource-icon support" aria-hidden="true">!</span>
+          <a className="resource-card floating-panel" href={supportUrl} target="_blank" rel="noreferrer">
+            <span className="resource-icon resource-icon-yellow" aria-hidden="true">!</span>
             <div>
               <span>SUPPORT</span>
               <h3>Report a problem or share an idea.</h3>
+              <p>Open an issue and help shape the next beta.</p>
+            </div>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a className="resource-card floating-panel" href={applicationGithub} target="_blank" rel="noreferrer">
+            <span className="resource-icon resource-icon-coral" aria-hidden="true">⌘</span>
+            <div>
+              <span>PROJECT</span>
+              <h3>Follow development on GitHub.</h3>
+              <p>Source, release notes, platform status, and project history.</p>
             </div>
             <span aria-hidden="true">↗</span>
           </a>
@@ -262,41 +391,43 @@ export default function Home() {
       </section>
 
       <section className="closing-section">
-        <img src="/mimo-mark.svg" alt="" width="72" height="72" />
+        <MimoLogo size="large" />
+        <span className="closing-note" aria-hidden="true">♪</span>
         <h2>Your collection has a new home.</h2>
         <p>Set it up once. Play it your way.</p>
-        <a
-          className="button button-primary"
-          href={downloadUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Download MIMO-FE
-          <span aria-hidden="true">↗</span>
-        </a>
+        <div className="closing-actions">
+          <a className="button button-primary floating-control" href={downloadUrl} target="_blank" rel="noreferrer">
+            Download MIMO-FE <span aria-hidden="true">↗</span>
+          </a>
+          <a className="button button-secondary floating-control" href={wikiUrl} target="_blank" rel="noreferrer">
+            Open the wiki <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </section>
 
       <footer>
         <a className="brand footer-brand" href="#top">
-          <img src="/mimo-mark.svg" alt="" width="28" height="28" />
-          <span>MIMO-FE</span>
+          <MimoLogo size="small" />
+          <span className="brand-copy">
+            <strong>MIMO-FE</strong>
+            <small>Multi Interface Mega Orchestrator FrontEnd</small>
+          </span>
         </a>
-        <p>Multi Interface Mega Orchestrator FrontEnd</p>
+        <p>Local-first. Built for your games, your controllers, and your screen.</p>
         <div>
-          <a href={`${applicationGithub}#readme`} target="_blank" rel="noreferrer">
-            Docs
-          </a>
-          <a href={`${applicationGithub}/issues`} target="_blank" rel="noreferrer">
-            Support
-          </a>
-          <a href={applicationGithub} target="_blank" rel="noreferrer">
-            App GitHub
-          </a>
-          <a href={websiteGithub} target="_blank" rel="noreferrer">
-            Website source
-          </a>
+          <a href={wikiUrl} target="_blank" rel="noreferrer">Wiki</a>
+          <a href={supportUrl} target="_blank" rel="noreferrer">Support</a>
+          <a href={applicationGithub} target="_blank" rel="noreferrer">App GitHub</a>
+          <a href={websiteGithub} target="_blank" rel="noreferrer">Website source</a>
         </div>
       </footer>
+
+      <nav className="mobile-dock floating-control" aria-label="Mobile navigation">
+        <a href="#top"><span aria-hidden="true">⌂</span><small>Home</small></a>
+        <a href="#release"><span aria-hidden="true">◇</span><small>Release</small></a>
+        <a href="#download"><span aria-hidden="true">↓</span><small>Download</small></a>
+        <a href={wikiUrl} target="_blank" rel="noreferrer"><span aria-hidden="true">?</span><small>Wiki</small></a>
+      </nav>
     </main>
   );
 }
