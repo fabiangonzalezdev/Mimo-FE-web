@@ -27,23 +27,23 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadataBase = new URL(`${protocol}://${host}`);
 
   return {
-    title: "MIMO-FE — Tu biblioteca, a tu manera",
+    title: "MIMO-FE — Your library, your way",
     description:
-      "Descarga MIMO-FE y sigue las novedades del frontend local para tu biblioteca de juegos.",
+      "Download MIMO-FE and follow the latest updates from the local frontend for your game library.",
     metadataBase,
     openGraph: {
-      title: "MIMO-FE — Tu biblioteca, a tu manera",
+      title: "MIMO-FE — Your library, your way",
       description:
-        "Un frontend local, personal y multiplataforma para tu biblioteca de juegos.",
+        "A local, personal, and cross-platform frontend for your game library.",
       type: "website",
-      locale: "es_AR",
+      locale: "en_US",
       images: [{ url: "/og.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "MIMO-FE — Tu biblioteca, a tu manera",
+      title: "MIMO-FE — Your library, your way",
       description:
-        "Un frontend local, personal y multiplataforma para tu biblioteca de juegos.",
+        "A local, personal, and cross-platform frontend for your game library.",
       images: ["/og.png"],
     },
     icons: {
@@ -59,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
