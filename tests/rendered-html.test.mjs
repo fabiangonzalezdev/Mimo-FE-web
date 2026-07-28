@@ -23,31 +23,37 @@ async function render() {
   );
 }
 
-test("server-renders the MIMO-FE landing page", async () => {
+test("server-renders the English MIMO-FE landing page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
   assert.match(html, /MIMO-FE/);
-  assert.match(html, /Tu biblioteca/);
+  assert.match(html, /Your library/);
   assert.match(html, /0\.1\.0 Preview/);
-  assert.match(html, /Descargar ahora/);
-  assert.match(html, /Novedades/);
-  assert.match(html, /Wiki/);
-  assert.match(html, /Soporte/);
+  assert.match(html, /Download on GitHub/);
+  assert.match(html, /Latest changes/);
+  assert.match(html, /Documentation/);
+  assert.match(html, /Support/);
+  assert.match(html, /github\.com\/fabiangonzalezdev\/Mimo-FE\/releases/);
+  assert.doesNotMatch(html, /Tu biblioteca|Descargar ahora|Novedades|Soporte/);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/i);
 });
 
-test("keeps starter preview code out of the finished site", async () => {
-  const [page, layout, packageJson] = await Promise.all([
+test("keeps the finished site responsive and free from starter preview code", async () => {
+  const [page, layout, css, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /MIMO-FE/);
-  assert.match(layout, /MIMO-FE — Tu biblioteca, a tu manera/);
+  assert.match(page, /https:\/\/github\.com\/fabiangonzalezdev\/Mimo-FE/);
+  assert.match(layout, /MIMO-FE — Your library, your way/);
+  assert.match(layout, /<html lang="en">/);
+  assert.match(css, /\.site-header\s*\{[^}]*position:\s*fixed/s);
+  assert.match(css, /@media \(max-width: 760px\)/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(
     access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)),
