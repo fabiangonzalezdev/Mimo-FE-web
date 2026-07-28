@@ -54,6 +54,11 @@ test("keeps the finished site responsive and free from starter preview code", as
   assert.match(layout, /<html lang="en">/);
   assert.match(css, /\.site-header\s*\{[^}]*position:\s*fixed/s);
   assert.match(css, /@media \(max-width: 760px\)/);
+  assert.match(
+    css,
+    /@media \(max-width: 1100px\)\s*\{[\s\S]*?\.hero\s*\{[^}]*width:\s*100%[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/,
+  );
+  assert.match(css, /\.hero-copy\s*\{[^}]*min-width:\s*0/s);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(
     access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)),
