@@ -1,86 +1,100 @@
-const githubBase = "https://github.com/fabiangonzalezdev/Mico-FE";
+const applicationGithub = "https://github.com/fabiangonzalezdev/Mimo-FE";
+const websiteGithub = "https://github.com/fabiangonzalezdev/Mimo-FE-web";
+const downloadUrl = `${applicationGithub}/releases`;
 
 const releaseHighlights = [
   {
     number: "01",
-    title: "Una app de escritorio real",
-    copy: "La interfaz React ahora vive dentro de Tauri 2, lista para generar instaladores de macOS y Windows.",
+    title: "A real desktop app",
+    copy: "The React interface now runs inside Tauri 2, ready for native macOS and Windows installers.",
   },
   {
     number: "02",
-    title: "Tu biblioteca sigue siendo tuya",
-    copy: "SQLite acelera el catálogo y un manifiesto XML portable mantiene juegos, orden, perfiles y assets juntos.",
+    title: "Your library stays yours",
+    copy: "SQLite keeps the catalog fast while a portable XML manifest keeps games, order, profiles, and assets together.",
   },
   {
     number: "03",
-    title: "Una interfaz más personal",
-    copy: "Reordena juegos, cambia el tamaño de cada tarjeta, elige bordes, portadas, fondos, logos y avatar.",
+    title: "A more personal interface",
+    copy: "Reorder games, resize every tile, and choose the borders, artwork, backgrounds, logos, and avatar you want.",
   },
   {
     number: "04",
-    title: "Más formas de jugar",
-    copy: "Navegación con mando, idiomas locales y conexión opcional y segura con RetroAchievements.",
+    title: "More ways to play",
+    copy: "Controller-first navigation, local language catalogs, and an optional secure RetroAchievements connection.",
   },
 ];
 
 const platforms = [
-  { name: "macOS", detail: ".app y .dmg", status: "Build configurado" },
-  { name: "Windows 11", detail: ".msi y .exe", status: "Build configurado" },
-  { name: "Linux", detail: "Desde el código fuente", status: "En preparación" },
+  { name: "macOS", detail: ".app and .dmg", status: "Build pipeline ready" },
+  { name: "Windows 11", detail: ".msi and .exe", status: "Build pipeline ready" },
+  { name: "Linux", detail: "Build from source", status: "In progress" },
 ];
 
 export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="MIMO-FE, inicio">
+        <a className="brand" href="#top" aria-label="MIMO-FE home">
           <img src="/mimo-mark.svg" alt="" width="34" height="34" />
           <span>MIMO-FE</span>
         </a>
 
-        <nav aria-label="Navegación principal">
-          <a href="#release">Novedades</a>
-          <a href="#download">Descarga</a>
-          <a href="#resources">Wiki</a>
-          <a href="#resources">Soporte</a>
+        <nav aria-label="Main navigation">
+          <a href="#release">Release</a>
+          <a href="#download">Download</a>
+          <a href="#resources">Docs</a>
+          <a href="#resources">Support</a>
         </nav>
 
-        <a className="header-cta" href="#download">
-          Descargar
+        <a
+          className="header-cta"
+          href={downloadUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Download
+          <span aria-hidden="true">↗</span>
         </a>
       </header>
 
       <section className="hero" id="top">
         <div className="hero-copy">
           <a className="release-pill" href="#release">
-            <span>Nueva versión</span>
+            <span>New release</span>
             v0.1.0 Preview
             <span aria-hidden="true">→</span>
           </a>
           <h1>
-            Tu biblioteca.
+            Your library.
             <br />
-            <em>Tu manera.</em>
+            <em>Your way.</em>
           </h1>
           <p>
-            MIMO-FE organiza y abre tu colección local de juegos desde una
-            interfaz pensada para el sofá, el mando y tu propio estilo.
+            MIMO-FE organizes and launches your local game collection through
+            an interface built for the couch, your controller, and your style.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#download">
-              Descargar ahora
-              <span aria-hidden="true">↓</span>
+            <a
+              className="button button-primary"
+              href={downloadUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Download on GitHub
+              <span aria-hidden="true">↗</span>
             </a>
             <a className="button button-quiet" href="#release">
-              Ver qué cambió
+              See what changed
             </a>
           </div>
           <p className="privacy-note">
-            Gratis y local. MIMO-FE no incluye ROMs, BIOS, cores ni emuladores.
+            Free and local. MIMO-FE does not include ROMs, BIOS files, cores, or
+            emulators.
           </p>
         </div>
 
-        <div className="product-shot" aria-label="Vista previa de MIMO-FE">
+        <div className="product-shot" aria-label="MIMO-FE interface preview">
           <div className="shot-bar">
             <div className="shot-dots" aria-hidden="true">
               <span />
@@ -142,12 +156,13 @@ export default function Home() {
       <section className="release-section" id="release">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">Últimos cambios · 27 Jul 2026</span>
+            <span className="eyebrow">Latest changes · July 27, 2026</span>
             <h2>0.1.0 Preview</h2>
           </div>
           <p>
-            MIMO-FE dejó de ser una demo web y se convirtió en una aplicación
-            local multiplataforma, sin perder la biblioteca existente.
+            MIMO-FE has moved beyond its web demo and become a local,
+            cross-platform desktop application without leaving your existing
+            library behind.
           </p>
         </div>
 
@@ -165,18 +180,18 @@ export default function Home() {
       <section className="download-section" id="download">
         <div className="download-copy">
           <span className="eyebrow">Download now</span>
-          <h2>Elige tu sistema y empieza.</h2>
+          <h2>Choose your platform and get started.</h2>
           <p>
-            Los instaladores se publican en GitHub. La versión Preview está
-            pensada para probar, compartir feedback y acompañar el desarrollo.
+            Installers and preview builds are published in the official MIMO-FE
+            GitHub repository. Follow the project there for every new release.
           </p>
           <a
             className="button button-light"
-            href={`${githubBase}/releases`}
+            href={downloadUrl}
             target="_blank"
             rel="noreferrer"
           >
-            Abrir descargas
+            Open GitHub downloads
             <span aria-hidden="true">↗</span>
           </a>
         </div>
@@ -184,7 +199,7 @@ export default function Home() {
         <div className="platform-list">
           {platforms.map((platform) => (
             <a
-              href={`${githubBase}/releases`}
+              href={downloadUrl}
               target="_blank"
               rel="noreferrer"
               className="platform-row"
@@ -211,35 +226,35 @@ export default function Home() {
       <section className="resources-section" id="resources">
         <div className="section-heading compact">
           <div>
-            <span className="eyebrow">Ayuda y documentación</span>
-            <h2>Todo lo necesario. Nada más.</h2>
+            <span className="eyebrow">Help and documentation</span>
+            <h2>Everything you need. Nothing extra.</h2>
           </div>
         </div>
 
         <div className="resource-grid">
           <a
             className="resource-card"
-            href={`${githubBase}#readme`}
+            href={`${applicationGithub}#readme`}
             target="_blank"
             rel="noreferrer"
           >
             <span className="resource-icon" aria-hidden="true">?</span>
             <div>
-              <span>WIKI</span>
-              <h3>Instalación, configuración y arquitectura.</h3>
+              <span>DOCUMENTATION</span>
+              <h3>Installation, setup, and architecture.</h3>
             </div>
             <span aria-hidden="true">↗</span>
           </a>
           <a
             className="resource-card"
-            href={`${githubBase}/issues`}
+            href={`${applicationGithub}/issues`}
             target="_blank"
             rel="noreferrer"
           >
             <span className="resource-icon support" aria-hidden="true">!</span>
             <div>
               <span>SUPPORT</span>
-              <h3>Reporta un problema o comparte una idea.</h3>
+              <h3>Report a problem or share an idea.</h3>
             </div>
             <span aria-hidden="true">↗</span>
           </a>
@@ -248,10 +263,16 @@ export default function Home() {
 
       <section className="closing-section">
         <img src="/mimo-mark.svg" alt="" width="72" height="72" />
-        <h2>Tu colección ya tiene casa.</h2>
-        <p>Configúrala una vez. Juega como quieras.</p>
-        <a className="button button-primary" href="#download">
-          Descargar MIMO-FE
+        <h2>Your collection has a new home.</h2>
+        <p>Set it up once. Play it your way.</p>
+        <a
+          className="button button-primary"
+          href={downloadUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Download MIMO-FE
+          <span aria-hidden="true">↗</span>
         </a>
       </section>
 
@@ -262,14 +283,17 @@ export default function Home() {
         </a>
         <p>Multi Interface Mega Orchestrator FrontEnd</p>
         <div>
-          <a href={`${githubBase}#readme`} target="_blank" rel="noreferrer">
-            Wiki
+          <a href={`${applicationGithub}#readme`} target="_blank" rel="noreferrer">
+            Docs
           </a>
-          <a href={`${githubBase}/issues`} target="_blank" rel="noreferrer">
-            Soporte
+          <a href={`${applicationGithub}/issues`} target="_blank" rel="noreferrer">
+            Support
           </a>
-          <a href={githubBase} target="_blank" rel="noreferrer">
-            GitHub
+          <a href={applicationGithub} target="_blank" rel="noreferrer">
+            App GitHub
+          </a>
+          <a href={websiteGithub} target="_blank" rel="noreferrer">
+            Website source
           </a>
         </div>
       </footer>
